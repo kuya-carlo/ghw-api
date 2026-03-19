@@ -5,15 +5,19 @@
     "context": ".."
   },
   "workspaceFolder": "/workspaces/ghw-api",
-  "settings": {
-    "python.pythonPath": "/usr/local/bin/python",
-    "python.formatting.provider": "black",
-    "editor.formatOnSave": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
   },
-  "extensions": [
-    "ms-python.python",
-    "ms-python.vscode-pylance",
-    "ms-azuretools.vscode-docker"
-  ],
   "postCreateCommand": "pip install --no-cache-dir -r requirements.txt"
 }
