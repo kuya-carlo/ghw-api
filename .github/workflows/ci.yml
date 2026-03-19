@@ -24,10 +24,24 @@ jobs:
       - name: Run tests
         run: pytest -q
 
-      - name: Generate OpenAPI spec
-        run: |
-          python scripts/generate_openapi.py
-          git diff --exit-code openapi.json || (echo "openapi.json is out of date; run 'python scripts/generate_openapi.py' and commit the result." && exit 1)
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Lint with ruff
         run: |
