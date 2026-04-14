@@ -10,7 +10,13 @@
       "settings": {
         "python.pythonPath": "/usr/local/bin/python",
         "python.formatting.provider": "black",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/usr/bin/zsh"
+          }
+        }
       },
       "extensions": [
         "ms-python.python",

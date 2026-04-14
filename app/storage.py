@@ -6,7 +6,7 @@ from threading import Lock
 from time import monotonic
 from typing import Dict, List, Optional
 
-from .schemas import Challenge, ChallengeCreate
+from .schemas import Challenge, ChallengeCreate, Difficulty
 
 
 class ChallengeStore:
@@ -20,6 +20,18 @@ class ChallengeStore:
         self._next_id = 1
         self._challenges: Dict[int, Challenge] = {}
         self._start = monotonic()
+        self._seed_default_challenge()
+
+    def _seed_default_challenge(self) -> None:
+        self.create(
+            ChallengeCreate(
+                title="Welcome challenge",
+                description="Create your first challenge by posting to /challenges.",
+                difficulty=Difficulty.easy,
+                tags=["demo", "starter"],
+                published=True,
+            )
+        )
 
     def uptime_seconds(self) -> float:
         return monotonic() - self._start
